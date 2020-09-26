@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover"><title>跨域存储</title></head><body><script type="text/javascript" src="./jssdk(1)"></script><script>!function (c, i, e, b) {
+    var h = i.createElement('script');
+    var f = i.getElementsByTagName('script')[0];
+    h.type = 'text/javascript';
+    h.crossorigin = true;
+    var isUserId = function isUserId(target) {
+      return typeof target === 'number' && target > 0;
+    };
+    var uid;
+    document.cookie.split(';').forEach(function (item) {
+      var i = item.trim().split(/=(?=.+)/);
+      var key = i[0];
+      var val = i[1];
+      if (key.toLowerCase() === 'utuser') uid = val.trim();
+    });
+    try {
+      uid = JSON.parse(localStorage.getItem('STORE')).userId;
+    } catch (e) {}
+    h.onload = function () {
+      try {
+        c[b] || (c[b] = new c.wpkReporter({
+          bid: 'ele_svip',
+          uid: uid,
+          sampleRate: 0.1,
+          plugins: []
+        }));
+        c[b].installAll();
+      } catch (e) {
+        console.error('init wpkReporter fail', e);
+      }
+    };
+    f.parentNode.insertBefore(h, f);
+    h.src = e;
+  }(window, document, 'https://g.alicdn.com/woodpeckerx/jssdk??wpkReporter.js', '__wpk');</script><script>var whiteList = [
+    /https?:\/\/([\w-_]+\.)*ele\.me(:\d+)?$/,
+    /https?:\/\/([\w-_]+\.)*elenet\.me(:\d+)?$/,
+    /https?:\/\/([\w-_]+\.)*eleme\.cn(:\d+)?$/,
+    /https?:\/\/([\w-_]+\.)*taobao\.com(:\d+)?$/,
+    /https?:\/\/([\w-_]+\.)*tmall\.com(:\d+)?$/,
+  ];
+  window.addEventListener('message', function (event) {
+    var origin = event.origin;
+    var inWhiteList = false;
+    if (!origin) return;
+    whiteList.forEach(function(reg) {
+      if (reg.test(origin)) {
+        inWhiteList = true;
+      }
+    });
+    if (!inWhiteList) return;
+    try {
+      if (event.data) {
+        var cmd = event.data.cmd || '';
+        var key = event.data.key;
+        var value = event.data.value;
+        var storage = window[/LocalStorage/i.test(cmd) ? 'localStorage' : 'sessionStorage'];
+        var result = {};
+
+        if (/^set\S+Storage$/.test(cmd) && key && value) {
+          storage.setItem(key, value);
+        } else if (/^get\S+Storage$/.test(cmd) && key) {
+          result = storage.getItem(key);
+        } else if (/^remove\S+Storage$/.test(cmd) && key) {
+          storage.removeItem(key);
+        }
+
+        window.parent.postMessage({
+          cmd: 'isReceivedPostMessage',
+          params: {
+            cmd: cmd,
+            key: key,
+            result: result,
+            success: true,
+          },
+        }, '*');
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  });</script></body></html>

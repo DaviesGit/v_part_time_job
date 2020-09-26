@@ -1,0 +1,1 @@
+!function(){var t,e=document.currentScript||function(){var t=document.getElementsByTagName("script");return t.length?t[t.length-1]:void 0}();e&&(t=e.getAttribute("data-ref")),window[t||"crayfish"]={"containerbg":"//cube.elemecdn.com/a/30/f5c0c96905cc630a7b1951fb89444png.png","discoverPath":"discover/"}}();
