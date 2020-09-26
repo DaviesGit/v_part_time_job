@@ -48,7 +48,7 @@
 ## About The Project
 
 这个项目只做展示使用，只有前端界面，没有后端。
-演示地址：[https://daviesgit.github.io/v_part_time_job/login.html](https://daviesgit.github.io/v_part_time_job/login.html)
+演示地址：[https://daviesgit.github.io/v_part_time_job/login.html](https://daviesgit.github.io/v_part_time_job/login.html)    `帐号密码随便输`
 
 个人中心
 
